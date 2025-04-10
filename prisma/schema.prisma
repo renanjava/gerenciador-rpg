@@ -28,12 +28,12 @@ model Personagem {
   nomeAventureiro String
   classe          ClassesPersonagem
   level           Int
-  ItensMagicos    ItensMagicos[]
+  ItensMagicos    ItemMagico[]
   forca           Int
   defesa          Int
 }
 
-model ItensMagicos {
+model ItemMagico {
   id             String         @id @default(uuid())
   nome           String
   tipoItemMagico TipoItemMagico
