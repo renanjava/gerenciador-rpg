@@ -16,30 +16,30 @@ export class PersonagemController {
   constructor(private readonly personagemService: PersonagemService) {}
 
   @Post()
-  create(@Body() createPersonagemDto: CreatePersonagemDto) {
-    return this.personagemService.create(createPersonagemDto);
+  async create(@Body() createPersonagemDto: CreatePersonagemDto) {
+    return await this.personagemService.create(createPersonagemDto);
   }
 
   @Get()
-  findAll() {
-    return this.personagemService.findAll();
+  async findAll() {
+    return await this.personagemService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.personagemService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.personagemService.findOne(id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updatePersonagemDto: UpdatePersonagemDto,
   ) {
-    return this.personagemService.update(+id, updatePersonagemDto);
+    return await this.personagemService.update(id, updatePersonagemDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.personagemService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.personagemService.remove(id);
   }
 }

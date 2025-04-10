@@ -16,30 +16,30 @@ export class ItemMagicoController {
   constructor(private readonly itemMagicoService: ItemMagicoService) {}
 
   @Post()
-  create(@Body() createItemMagicoDto: CreateItemMagicoDto) {
+  async create(@Body() createItemMagicoDto: CreateItemMagicoDto) {
     return this.itemMagicoService.create(createItemMagicoDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.itemMagicoService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.itemMagicoService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.itemMagicoService.findOne(id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateItemMagicoDto: UpdateItemMagicoDto,
   ) {
-    return this.itemMagicoService.update(+id, updateItemMagicoDto);
+    return await this.itemMagicoService.update(id, updateItemMagicoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.itemMagicoService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.itemMagicoService.remove(id);
   }
 }
