@@ -1,98 +1,70 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Atividade CRUD (Problemática)
+Data Limite Entrega: 23:59 13/Abril/2025.
+Link de Entrega: Entrega.
+Segue abaixo o detalhamento sobre a Atividade Prática de CRUD.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Definições
+A atividade em questão não será um acréscimo de nota (EXTRA), será um percentual que será descontado da nota final do Aluno, ou seja, a nota máxima é 0% e a mínima é 25%.
+Não será obrigatório o uso de uma linguagem específica, muito menos das máquinas da Unicesumar. Porém será proibido o uso de ferramentas de IA (Chat GPT por exemplo), caso o aluno utilize alguma dessas ferramentas, a nota será 25% instantaneamente.
+Envio por meio de Forms disponibilizado no dia 08/Abr,a entrega tem de ser realizada dentro do período de aplicação da avaliação (08/Abr - 13/Abr). Qualquer entrega posterior a isso será desconsiderado e a nota será considerada como 25%.
+Será obrigatório o uso de um repositório do GitHub para a entrega da avaliação, bem como a aplicação dos conceitos de POO.
+A atividade é INDIVIDUAL, entregas iguais ou códigos copiados de repositórios, serão consideradas Plágio.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Critérios de Avaliação
+00% - CRUD funcional, solucionando o problema solicitado, aplicando as métricas solicitadas;
+05% - CRUD funcional, solucionando o problema solicitado, sem aplicar de maneira congruente as métricas solicitadas;
+10% - CRUD funcional, solucionando o problema solicitado, sem aplicar nada das métricas solicitadas;
+25% - CRUD não funcional, aplicando as métricas solicitadas;
+25% - CRUD não funcional, sem aplicar de maneira congruente as métricas solicitadas;
+25% - CRUD não funcional, sem aplicar nada das métricas solicitadas;
+Lembrando que o descumprimento das obrigatoriedades do enunciado serão consideradas 25%.
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
-```
-
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Problemática
+Você foi contratado para desenvolver um sistema de gerenciamento para um jogo de RPG (Role-Playing Game). O sistema deve permitir o gerenciamento de Personagens e Itens Mágicos. Cada personagem pode carregar vários itens mágicos, e cada item mágico está vinculado a um personagem.
+Entidades e Atributos
+Personagem
+Descrição da Entidade Personagem, com definições e Atributos.
+Definições
+Na criação do Personagem ele terá 10 pontos para Distribuir entre Força e Defesa, do jeito que desejar, não passando dos 10 pontos disponíveis (ex: 5-5, 6-4, 10-0). Os valores serão apresentados nas informações do Personagem e devem considerar os Itens Mágicos do Personagem, somando a força e a defesa dos itens do Personagem para exibição.
+As classes somente serão essas Listadas, não podendo existir Personagens com outras classes vinculadas.
+Na exibição dos dados do Personagem, os atributos Força e Defesa, consideram os valores dos Itens Mágicos, que devem ser somados aos valores do Personagem.
+O Personagem só pode possuir 1 Item Mágico do tipo Amuleto.
+Atributos do Personagem
+Identificador;
+Nome;
+Nome Aventureiro;
+Classe (Guerreiro, Mago, Arqueiro, Ladino ou Bardo)
+Level;
+Lista de Itens Mágicos;
+Força;
+Defesa;
+Item Mágico
+Descrição da Entidade Item Mágico, com definições e Atributos.
+Definições
+Os Tipos do Item somente serão esses Listadas, não podendo existir Itens Mágicos com outros tipos vinculados.
+Quando um Item for do Tipo Arma, a Defesa dele será OBRIGATORIAMENTE zero.
+Quando um Item for do Tipo Armadura, a Força dele será OBRIGATORIAMENTE zero.
+Quando um Item for do Tipo Amuleto, ele poderá ter Força e Defesa, porém o Personagem só pode possuir 1 Item Mágico do tipo Amuleto.
+Os atributos Força e Defesa, podem ser no máximo 10.
+Não podem existir Itens com zero de Defesa e zero de Força.
+Atributos Item Mágico
+Identificador;
+Nome;
+Tipo do Item (Arma, Armadura e Amuleto);
+Força;
+Defesa;
+Features
+Serão necessários os mapeamentos abaixo (Entrega dessa documentação por Swagger, ReadMe ou similares).
+Cadastrar Personagem;
+Cadastrar Item Mágico;
+Listar Personagem;
+Buscar Personagem por Identificador;
+Atualizar Nome Aventureiro por Identificador;
+Remover Personagem;
+Adicionar Item Mágico;
+Listar Itens Mágicos;
+Buscar Item Mágico por Identificador;
+Adicionar Item Mágico ao Personagem;
+Listar Itens Mágicos por Personagem;
+Remover Item Mágico do Personagem;
+Buscar Amuleto do Personagem;
