@@ -1,15 +1,29 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateItemMagicoDto } from './dto/create-item-magico.dto';
 import { UpdateItemMagicoDto } from './dto/update-item-magico.dto';
 import { ItemMagicoRepository } from './item-magico.repository';
+import { PersonagemRepository } from 'src/personagem/personagem.repository';
 
 @Injectable()
 export class ItemMagicoService {
-  constructor(private readonly itemMagicoRepository: ItemMagicoRepository) {}
+  constructor(
+    private readonly itemMagicoRepository: ItemMagicoRepository,
+    private readonly personagemRepository: PersonagemRepository,
+  ) {}
   async create(createItemMagicoDto: CreateItemMagicoDto) {
-    await this.itemMagicoRepository.createItemMagico({
-      ...createItemMagicoDto,
-      personagem: { connect: { id: createItemMagicoDto.personagemId } },
+    const findedPersonagem = await this.personagemRepository.personagem({
+      id: createItemMagicoDto.personagemId,
+    });
+
+    if (!findedPersonagem) {
+      throw new NotFoundException('Personagem não encontrado');
+    }
+
+    const { personagemId, ...itemMagico } = createItemMagicoDto;
+
+    return await this.itemMagicoRepository.createItemMagico({
+      ...itemMagico,
+      personagem: { connect: { id: personagemId } },
     });
   }
 

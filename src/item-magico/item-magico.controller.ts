@@ -17,12 +17,12 @@ export class ItemMagicoController {
 
   @Post()
   async create(@Body() createItemMagicoDto: CreateItemMagicoDto) {
-    return this.itemMagicoService.create(createItemMagicoDto);
+    return await this.itemMagicoService.create(createItemMagicoDto);
   }
 
   @Get()
   async findAll() {
-    return this.itemMagicoService.findAll();
+    return await this.itemMagicoService.findAll();
   }
 
   @Get(':id')
