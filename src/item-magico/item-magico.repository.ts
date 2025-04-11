@@ -11,6 +11,7 @@ export class ItemMagicoRepository {
   ): Promise<ItemMagico | null> {
     return this.prisma.itemMagico.findUnique({
       where: ItemMagicoWhereUniqueInput,
+      include: { personagem: true },
     });
   }
 
@@ -28,6 +29,7 @@ export class ItemMagicoRepository {
       cursor,
       where,
       orderBy,
+      include: { personagem: true },
     });
   }
 
@@ -36,6 +38,7 @@ export class ItemMagicoRepository {
   ): Promise<ItemMagico> {
     return this.prisma.itemMagico.create({
       data,
+      include: { personagem: true },
     });
   }
 
@@ -47,6 +50,7 @@ export class ItemMagicoRepository {
     return this.prisma.itemMagico.update({
       data,
       where,
+      include: { personagem: true },
     });
   }
 
@@ -55,6 +59,7 @@ export class ItemMagicoRepository {
   ): Promise<ItemMagico> {
     return this.prisma.itemMagico.delete({
       where,
+      include: { personagem: true },
     });
   }
 }

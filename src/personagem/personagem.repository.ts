@@ -11,6 +11,7 @@ export class PersonagemRepository {
   ): Promise<Personagem | null> {
     return this.prisma.personagem.findUnique({
       where: personagemWhereUniqueInput,
+      include: { ItensMagicos: true },
     });
   }
 
@@ -28,6 +29,7 @@ export class PersonagemRepository {
       cursor,
       where,
       orderBy,
+      include: { ItensMagicos: true },
     });
   }
 
@@ -36,6 +38,7 @@ export class PersonagemRepository {
   ): Promise<Personagem> {
     return this.prisma.personagem.create({
       data,
+      include: { ItensMagicos: true },
     });
   }
 
@@ -47,6 +50,7 @@ export class PersonagemRepository {
     return this.prisma.personagem.update({
       data,
       where,
+      include: { ItensMagicos: true },
     });
   }
 
@@ -55,6 +59,7 @@ export class PersonagemRepository {
   ): Promise<Personagem> {
     return this.prisma.personagem.delete({
       where,
+      include: { ItensMagicos: true },
     });
   }
 }
