@@ -14,7 +14,6 @@ enum TipoItemMagico {
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -40,5 +39,5 @@ model ItemMagico {
   forca          Int
   defesa         Int
   personagemId   String
-  personagem     Personagem     @relation(fields: [personagemId], references: [id])
+  personagem     Personagem     @relation(fields: [personagemId], references: [id], onDelete: Cascade)
 }

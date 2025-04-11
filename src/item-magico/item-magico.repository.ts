@@ -9,7 +9,7 @@ export class ItemMagicoRepository {
   async itemMagico(
     ItemMagicoWhereUniqueInput: Prisma.ItemMagicoWhereUniqueInput,
   ): Promise<ItemMagico | null> {
-    return this.prisma.ItemMagico.findUnique({
+    return this.prisma.itemMagico.findUnique({
       where: ItemMagicoWhereUniqueInput,
     });
   }
@@ -22,7 +22,7 @@ export class ItemMagicoRepository {
     orderBy?: Prisma.ItemMagicoOrderByWithRelationInput;
   }): Promise<ItemMagico[]> {
     const { skip, take, cursor, where, orderBy } = params;
-    return this.prisma.ItemMagico.findMany({
+    return this.prisma.itemMagico.findMany({
       skip,
       take,
       cursor,
@@ -34,7 +34,7 @@ export class ItemMagicoRepository {
   async createItemMagico(
     data: Prisma.ItemMagicoCreateInput,
   ): Promise<ItemMagico> {
-    return this.prisma.ItemMagico.create({
+    return this.prisma.itemMagico.create({
       data,
     });
   }
@@ -44,7 +44,7 @@ export class ItemMagicoRepository {
     data: Prisma.ItemMagicoUpdateInput;
   }): Promise<ItemMagico> {
     const { where, data } = params;
-    return this.prisma.ItemMagico.update({
+    return this.prisma.itemMagico.update({
       data,
       where,
     });
@@ -53,7 +53,7 @@ export class ItemMagicoRepository {
   async deleteItemMagico(
     where: Prisma.ItemMagicoWhereUniqueInput,
   ): Promise<ItemMagico> {
-    return this.prisma.ItemMagico.delete({
+    return this.prisma.itemMagico.delete({
       where,
     });
   }

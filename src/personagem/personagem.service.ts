@@ -17,17 +17,17 @@ export class PersonagemService {
   }
 
   async findOne(id: string) {
-    return await this.personagemRepository.personagem(id);
+    return await this.personagemRepository.personagem({ id });
   }
 
   async update(id: string, updatePersonagemDto: UpdatePersonagemDto) {
     return await this.personagemRepository.updatePersonagem({
-      where: id,
+      where: { id },
       data: updatePersonagemDto,
     });
   }
 
   async remove(id: string) {
-    return await this.personagemRepository.deletePersonagem(id);
+    return await this.personagemRepository.deletePersonagem({ id });
   }
 }

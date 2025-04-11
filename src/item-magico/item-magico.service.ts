@@ -7,7 +7,10 @@ import { ItemMagicoRepository } from './item-magico.repository';
 export class ItemMagicoService {
   constructor(private readonly itemMagicoRepository: ItemMagicoRepository) {}
   async create(createItemMagicoDto: CreateItemMagicoDto) {
-    await this.itemMagicoRepository.createItemMagico(createItemMagicoDto);
+    await this.itemMagicoRepository.createItemMagico({
+      ...createItemMagicoDto,
+      personagem: { connect: { id: createItemMagicoDto.personagemId } },
+    });
   }
 
   async findAll() {
@@ -15,17 +18,17 @@ export class ItemMagicoService {
   }
 
   async findOne(id: string) {
-    return await this.itemMagicoRepository.itemMagico(id);
+    return await this.itemMagicoRepository.itemMagico({ id });
   }
 
   async update(id: string, updateItemMagicoDto: UpdateItemMagicoDto) {
     return await this.itemMagicoRepository.updateItemMagico({
       where: { id },
-      data: { updateItemMagicoDto },
+      data: updateItemMagicoDto,
     });
   }
 
   async remove(id: string) {
-    return await this.itemMagicoRepository.deleteItemMagico(id);
+    return await this.itemMagicoRepository.deleteItemMagico({ id });
   }
 }
