@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateItemMagicoDto } from './dto/create-item-magico.dto';
 import { UpdateItemMagicoDto } from './dto/update-item-magico.dto';
 import { ItemMagicoRepository } from './item-magico.repository';
-import { PersonagemRepository } from 'src/personagem/personagem.repository';
+import { PersonagemRepository } from '../personagem/personagem.repository';
 
 @Injectable()
 export class ItemMagicoService {
