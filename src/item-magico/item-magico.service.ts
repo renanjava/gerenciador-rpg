@@ -8,6 +8,7 @@ import { UpdateItemMagicoDto } from './dto/update-item-magico.dto';
 import { ItemMagicoRepository } from './item-magico.repository';
 import { PersonagemRepository } from '../personagem/personagem.repository';
 import { PersonagemService } from '../personagem/personagem.service';
+import { PersonagemEntity } from '../personagem/entities/personagem.entity';
 
 @Injectable()
 export class ItemMagicoService {
@@ -16,59 +17,20 @@ export class ItemMagicoService {
     private readonly personagemRepository: PersonagemRepository,
     private readonly personagemService: PersonagemService,
   ) {}
+
   async create(createItemMagicoDto: CreateItemMagicoDto) {
+    this.validarItemMagico(createItemMagicoDto);
+
+    const personagemBuscado = await this.validarPersonagem(createItemMagicoDto);
+    await this.atualizarAtributosPersonagem(
+      personagemBuscado,
+      createItemMagicoDto,
+    );
+
     const { personagemId, ...itemMagico } = createItemMagicoDto;
-
-    const personagemEncontrado = await this.personagemRepository.personagem({
-      id: personagemId,
-    });
-
-    if (!personagemEncontrado) {
-      throw new NotFoundException('Personagem não encontrado');
-    }
-
-    if (itemMagico.tipoItemMagico === 'ARMADURA' && itemMagico.forca > 0) {
-      throw new BadRequestException('Armadura não pode ter força');
-    }
-
-    if (itemMagico.tipoItemMagico === 'ARMA' && itemMagico.defesa > 0) {
-      throw new BadRequestException('Arma não pode ter defesa');
-    }
-
-    if (itemMagico.defesa == 0 && itemMagico.forca == 0) {
-      throw new BadRequestException('Item mágico deve ter força ou defesa');
-    }
-
-    if (itemMagico.tipoItemMagico === 'AMULETO') {
-      try {
-        await this.personagemService.findAmuleto(personagemId);
-      } catch (error) {
-        if (error.message === 'Amuleto de personagem não encontrado') {
-          const itemMagicoCreated =
-            await this.itemMagicoRepository.createItemMagico({
-              ...itemMagico,
-              personagem: { connect: { id: personagemId } },
-            });
-
-          await this.personagemService.update(personagemId, {
-            defesa: personagemEncontrado.defesa + itemMagico.defesa,
-            forca: personagemEncontrado.forca + itemMagico.forca,
-          });
-
-          return itemMagicoCreated;
-        }
-      }
-      throw new BadRequestException('Personagem já possui um amuleto');
-    }
-
     const itemMagicoCreated = await this.itemMagicoRepository.createItemMagico({
       ...itemMagico,
       personagem: { connect: { id: personagemId } },
-    });
-
-    await this.personagemService.update(personagemId, {
-      defesa: personagemEncontrado.defesa + itemMagico.defesa,
-      forca: personagemEncontrado.forca + itemMagico.forca,
     });
 
     return itemMagicoCreated;
@@ -91,5 +53,59 @@ export class ItemMagicoService {
 
   async remove(id: string) {
     return await this.itemMagicoRepository.deleteItemMagico({ id });
+  }
+
+  private validarItemMagico(createItemMagicoDto: CreateItemMagicoDto) {
+    if (
+      createItemMagicoDto.tipoItemMagico === 'ARMADURA' &&
+      createItemMagicoDto.forca > 0
+    ) {
+      throw new BadRequestException('Armadura não pode ter força');
+    }
+
+    if (
+      createItemMagicoDto.tipoItemMagico === 'ARMA' &&
+      createItemMagicoDto.defesa > 0
+    ) {
+      throw new BadRequestException('Arma não pode ter defesa');
+    }
+
+    if (createItemMagicoDto.defesa == 0 && createItemMagicoDto.forca == 0) {
+      throw new BadRequestException('Item mágico deve ter força ou defesa');
+    }
+  }
+
+  private async validarPersonagem(createItemMagicoDto: CreateItemMagicoDto) {
+    const personagemEncontrado = await this.personagemRepository.personagem({
+      id: createItemMagicoDto.personagemId,
+    });
+
+    if (!personagemEncontrado) {
+      throw new NotFoundException('Personagem não encontrado');
+    }
+
+    if (createItemMagicoDto.tipoItemMagico === 'AMULETO') {
+      try {
+        await this.personagemService.findAmuleto(
+          createItemMagicoDto.personagemId,
+        );
+      } catch (error) {
+        if (error.message === 'Amuleto de personagem não encontrado') {
+          return personagemEncontrado;
+        }
+      }
+      throw new BadRequestException('Personagem já possui um amuleto');
+    }
+    return personagemEncontrado;
+  }
+
+  private async atualizarAtributosPersonagem(
+    personagem: PersonagemEntity,
+    itemMagico: CreateItemMagicoDto,
+  ) {
+    await this.personagemService.update(itemMagico.personagemId, {
+      defesa: personagem.defesa + itemMagico.defesa,
+      forca: personagem.forca + itemMagico.forca,
+    });
   }
 }

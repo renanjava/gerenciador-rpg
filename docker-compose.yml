@@ -4,6 +4,6 @@ services:
     restart: always
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_DB: mydb
     ports:
       - 5432:5432
