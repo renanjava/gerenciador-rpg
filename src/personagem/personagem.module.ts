@@ -8,6 +8,6 @@ import { PrismaModule } from '../prisma/prisma.module';
   imports: [PrismaModule],
   controllers: [PersonagemController],
   providers: [PersonagemService, PersonagemRepository],
-  exports: [PersonagemRepository],
+  exports: [PersonagemRepository, PersonagemService],
 })
 export class PersonagemModule {}
