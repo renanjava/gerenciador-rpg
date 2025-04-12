@@ -35,39 +35,40 @@ export class PersonagemService {
   }
 
   async findAmuleto(id: string) {
-    const personagemFinded = (await this.personagemRepository.personagem({
+    const personagemEncontrado = (await this.personagemRepository.personagem({
       id: id,
     })) as any;
-    if (!personagemFinded) {
+    if (!personagemEncontrado) {
       throw new NotFoundException('Personagem não encontrado');
     }
 
-    const amuletoFinded = personagemFinded.itensMagicos.find(
+    const amuletoEncontrado = personagemEncontrado.itensMagicos.find(
       (item) => item.tipoItemMagico === 'AMULETO',
     );
-    if (!amuletoFinded) {
+    if (!amuletoEncontrado) {
       throw new NotFoundException('Amuleto de personagem não encontrado');
     }
 
-    return amuletoFinded;
+    return amuletoEncontrado;
   }
 
   async findItensMagicos(id: string) {
-    const personagemFinded = await this.personagemRepository.personagem({
+    const personagemEncontrado = await this.personagemRepository.personagem({
       id: id,
     });
-    if (!personagemFinded) {
+    if (!personagemEncontrado) {
       throw new NotFoundException('Personagem não encontrado');
     }
 
-    const itensMagicosFinded = await this.itemMagicoRepository.itensMagicos({
-      where: { personagemId: id },
-    });
-    if (!itensMagicosFinded) {
+    const itensMagicosEncontrados =
+      await this.itemMagicoRepository.itensMagicos({
+        where: { personagemId: id },
+      });
+    if (!itensMagicosEncontrados) {
       throw new NotFoundException('Itens mágicos de personagem não encontrado');
     }
 
-    return itensMagicosFinded;
+    return itensMagicosEncontrados;
   }
 
   async update(id: string, updatePersonagemDto: UpdatePersonagemDto) {

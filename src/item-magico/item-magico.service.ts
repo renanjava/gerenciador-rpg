@@ -19,11 +19,11 @@ export class ItemMagicoService {
   async create(createItemMagicoDto: CreateItemMagicoDto) {
     const { personagemId, ...itemMagico } = createItemMagicoDto;
 
-    const findedPersonagem = await this.personagemRepository.personagem({
+    const personagemEncontrado = await this.personagemRepository.personagem({
       id: personagemId,
     });
 
-    if (!findedPersonagem) {
+    if (!personagemEncontrado) {
       throw new NotFoundException('Personagem não encontrado');
     }
 
@@ -51,8 +51,8 @@ export class ItemMagicoService {
             });
 
           await this.personagemService.update(personagemId, {
-            defesa: findedPersonagem.defesa + itemMagico.defesa,
-            forca: findedPersonagem.forca + itemMagico.forca,
+            defesa: personagemEncontrado.defesa + itemMagico.defesa,
+            forca: personagemEncontrado.forca + itemMagico.forca,
           });
 
           return itemMagicoCreated;
@@ -67,8 +67,8 @@ export class ItemMagicoService {
     });
 
     await this.personagemService.update(personagemId, {
-      defesa: findedPersonagem.defesa + itemMagico.defesa,
-      forca: findedPersonagem.forca + itemMagico.forca,
+      defesa: personagemEncontrado.defesa + itemMagico.defesa,
+      forca: personagemEncontrado.forca + itemMagico.forca,
     });
 
     return itemMagicoCreated;
