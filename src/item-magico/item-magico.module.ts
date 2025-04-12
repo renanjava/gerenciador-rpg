@@ -14,7 +14,7 @@ import { PersonagemService } from 'src/personagem/personagem.service';
     ItemMagicoRepository,
     PersonagemRepository,
     PersonagemService,
-  
   ],
+  exports: [ItemMagicoRepository],
 })
 export class ItemMagicoModule {}
