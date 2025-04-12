@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreatePersonagemDto } from './dto/create-personagem.dto';
 import { UpdatePersonagemDto } from './dto/update-personagem.dto';
 import { PersonagemRepository } from './personagem.repository';
@@ -7,6 +11,12 @@ import { PersonagemRepository } from './personagem.repository';
 export class PersonagemService {
   constructor(private readonly personagemRepository: PersonagemRepository) {}
   async create(createPersonagemDto: CreatePersonagemDto) {
+    if (createPersonagemDto.forca + createPersonagemDto.defesa > 10) {
+      throw new BadRequestException(
+        'Soma dos atributos de força e defesa não pode ser maior que 10',
+      );
+    }
+
     return await this.personagemRepository.createPersonagem(
       createPersonagemDto,
     );

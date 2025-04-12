@@ -7,7 +7,7 @@ import { CreateItemMagicoDto } from './dto/create-item-magico.dto';
 import { UpdateItemMagicoDto } from './dto/update-item-magico.dto';
 import { ItemMagicoRepository } from './item-magico.repository';
 import { PersonagemRepository } from '../personagem/personagem.repository';
-import { PersonagemService } from 'src/personagem/personagem.service';
+import { PersonagemService } from '../personagem/personagem.service';
 
 @Injectable()
 export class ItemMagicoService {
