@@ -27,6 +27,14 @@ export class ItemMagicoService {
       throw new NotFoundException('Personagem não encontrado');
     }
 
+    if (itemMagico.tipoItemMagico === 'ARMADURA' && itemMagico.forca > 0) {
+      throw new BadRequestException('Armadura não pode ter força');
+    }
+
+    if (itemMagico.tipoItemMagico === 'ARMA' && itemMagico.defesa > 0) {
+      throw new BadRequestException('Arma não pode ter defesa');
+    }
+
     if (itemMagico.tipoItemMagico === 'AMULETO') {
       try {
         await this.personagemService.findAmuleto(personagemId);
@@ -40,6 +48,11 @@ export class ItemMagicoService {
       }
       throw new BadRequestException('Personagem já possui um amuleto');
     }
+
+    return await this.itemMagicoRepository.createItemMagico({
+      ...itemMagico,
+      personagem: { connect: { id: personagemId } },
+    });
   }
 
   async findAll() {
