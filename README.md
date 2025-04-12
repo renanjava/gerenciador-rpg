@@ -118,8 +118,9 @@ O sistema foi projetado para atender às seguintes necessidades:
 
 Importando as Rotas:
 
-1. Coleção das rotas: [https://.postman.co/workspace/My-Workspace~3074cebe-086b-4728-8310-3a6e0b4bb079/collection/30576907-048d049a-cf18-4760-8296-b95480e00d20?action=share&creator=30576907](URL)
-2. Importar a coleção do Postman
+1. Acesse a coleção de rotas por este link: [Coleção das rotas](https://postman.co/workspace/My-Workspace~3074cebe-086b-4728-8310-3a6e0b4bb079/collection/30576907-048d049a-cf18-4760-8296-b95480e00d20?action=share&creator=30576907)
+2. Importe a coleção das rotas no Postman
+3. Execute as rotas da coleção no Postman
 
 **Rotas Disponíveis:**
 
