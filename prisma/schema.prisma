@@ -27,7 +27,7 @@ model Personagem {
   nomeAventureiro String
   classe          ClassesPersonagem
   level           Int
-  ItensMagicos    ItemMagico[]
+  itensMagicos    ItemMagico[]
   forca           Int
   defesa          Int
 }

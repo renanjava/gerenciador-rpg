@@ -30,6 +30,11 @@ export class PersonagemController {
     return await this.personagemService.findOne(id);
   }
 
+  @Get(':id/amuleto')
+  async findAmuleto(@Param('id') id: string) {
+    return await this.personagemService.findAmuleto(id);
+  }
+
   @Patch(':id')
   async update(
     @Param('id') id: string,
