@@ -44,19 +44,34 @@ export class ItemMagicoService {
         await this.personagemService.findAmuleto(personagemId);
       } catch (error) {
         if (error.message === 'Amuleto de personagem não encontrado') {
-          return await this.itemMagicoRepository.createItemMagico({
-            ...itemMagico,
-            personagem: { connect: { id: personagemId } },
+          const itemMagicoCreated =
+            await this.itemMagicoRepository.createItemMagico({
+              ...itemMagico,
+              personagem: { connect: { id: personagemId } },
+            });
+
+          await this.personagemService.update(personagemId, {
+            defesa: findedPersonagem.defesa + itemMagico.defesa,
+            forca: findedPersonagem.forca + itemMagico.forca,
           });
+
+          return itemMagicoCreated;
         }
       }
       throw new BadRequestException('Personagem já possui um amuleto');
     }
 
-    return await this.itemMagicoRepository.createItemMagico({
+    const itemMagicoCreated = await this.itemMagicoRepository.createItemMagico({
       ...itemMagico,
       personagem: { connect: { id: personagemId } },
     });
+
+    await this.personagemService.update(personagemId, {
+      defesa: findedPersonagem.defesa + itemMagico.defesa,
+      forca: findedPersonagem.forca + itemMagico.forca,
+    });
+
+    return itemMagicoCreated;
   }
 
   async findAll() {

@@ -50,7 +50,6 @@ export class PersonagemRepository {
     return this.prisma.personagem.update({
       data,
       where,
-      include: { itensMagicos: true },
     });
   }
 
