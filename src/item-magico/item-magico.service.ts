@@ -35,6 +35,10 @@ export class ItemMagicoService {
       throw new BadRequestException('Arma não pode ter defesa');
     }
 
+    if (itemMagico.defesa == 0 && itemMagico.forca == 0) {
+      throw new BadRequestException('Item mágico deve ter força ou defesa');
+    }
+
     if (itemMagico.tipoItemMagico === 'AMULETO') {
       try {
         await this.personagemService.findAmuleto(personagemId);
