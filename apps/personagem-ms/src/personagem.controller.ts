@@ -45,7 +45,7 @@ export class PersonagemController {
     @Param('id') id: string,
     @Body() updatePersonagemDto: UpdatePersonagemDto,
   ) {
-    return await this.personagemService.update(id, updatePersonagemDto);
+    return await this.personagemService.update({ id, updatePersonagemDto });
   }
 
   @Delete(':id')

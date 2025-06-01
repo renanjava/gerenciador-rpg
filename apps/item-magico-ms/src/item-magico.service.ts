@@ -6,17 +6,21 @@ import {
 import { CreateItemMagicoDto } from './dto/create-item-magico.dto';
 import { UpdateItemMagicoDto } from './dto/update-item-magico.dto';
 import { ItemMagicoRepository } from './item-magico.repository';
-import { PersonagemRepository } from '../personagem/personagem.repository';
-import { PersonagemService } from '../personagem/personagem.service';
-import { PersonagemEntity } from '../personagem/entities/personagem.entity';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
 export class ItemMagicoService {
   constructor(
     private readonly itemMagicoRepository: ItemMagicoRepository,
-    private readonly personagemRepository: PersonagemRepository,
-    private readonly personagemService: PersonagemService,
+    private readonly kafkaClient: ClientKafka,
   ) {}
+
+  async onModuleInit() {
+    this.kafkaClient.subscribeToResponseOf('get-personagem');
+    this.kafkaClient.subscribeToResponseOf('get-amuleto');
+    this.kafkaClient.subscribeToResponseOf('update-personagem');
+    await this.kafkaClient.connect();
+  }
 
   async create(createItemMagicoDto: CreateItemMagicoDto) {
     this.validarItemMagico(createItemMagicoDto);
@@ -76,9 +80,9 @@ export class ItemMagicoService {
   }
 
   private async validarPersonagem(createItemMagicoDto: CreateItemMagicoDto) {
-    const personagemEncontrado = await this.personagemRepository.personagem({
-      id: createItemMagicoDto.personagemId,
-    });
+    const personagemEncontrado = await this.kafkaClient
+      .send('get-personagem', createItemMagicoDto.personagemId)
+      .toPromise();
 
     if (!personagemEncontrado) {
       throw new NotFoundException('Personagem não encontrado');
@@ -86,9 +90,9 @@ export class ItemMagicoService {
 
     if (createItemMagicoDto.tipoItemMagico === 'AMULETO') {
       try {
-        await this.personagemService.findAmuleto(
-          createItemMagicoDto.personagemId,
-        );
+        await this.kafkaClient
+          .send('get-amuleto', createItemMagicoDto.personagemId)
+          .toPromise();
       } catch (error) {
         if (error.message === 'Amuleto de personagem não encontrado') {
           return personagemEncontrado;
@@ -100,12 +104,17 @@ export class ItemMagicoService {
   }
 
   private async atualizarAtributosPersonagem(
-    personagem: PersonagemEntity,
+    personagem: any,
     itemMagico: CreateItemMagicoDto,
   ) {
-    await this.personagemService.update(itemMagico.personagemId, {
-      defesa: personagem.defesa + itemMagico.defesa,
-      forca: personagem.forca + itemMagico.forca,
-    });
+    await this.kafkaClient
+      .send('update-personagem', {
+        id: itemMagico.personagemId,
+        updatePersonagemDto: {
+          defesa: personagem.defesa + itemMagico.defesa,
+          forca: personagem.forca + itemMagico.forca,
+        },
+      })
+      .toPromise();
   }
 }

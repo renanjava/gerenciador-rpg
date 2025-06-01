@@ -6,14 +6,20 @@ import {
 import { CreatePersonagemDto } from './dto/create-personagem.dto';
 import { UpdatePersonagemDto } from './dto/update-personagem.dto';
 import { PersonagemRepository } from './personagem.repository';
-import { ItemMagicoRepository } from '../item-magico/item-magico.repository';
+import { ClientKafka, MessagePattern, Payload } from '@nestjs/microservices';
 
 @Injectable()
 export class PersonagemService {
   constructor(
     private readonly personagemRepository: PersonagemRepository,
-    private readonly itemMagicoRepository: ItemMagicoRepository,
+    private readonly kafkaClient: ClientKafka,
   ) {}
+
+  async onModuleInit() {
+    this.kafkaClient.subscribeToResponseOf('get-item-magico');
+    await this.kafkaClient.connect();
+  }
+
   async create(createPersonagemDto: CreatePersonagemDto) {
     if (createPersonagemDto.forca + createPersonagemDto.defesa > 10) {
       throw new BadRequestException(
@@ -60,10 +66,9 @@ export class PersonagemService {
       throw new NotFoundException('Personagem não encontrado');
     }
 
-    const itensMagicosEncontrados =
-      await this.itemMagicoRepository.itensMagicos({
-        where: { personagemId: id },
-      });
+    const itensMagicosEncontrados = await this.kafkaClient
+      .send('get-item-magico', { where: { personagemId: id } })
+      .toPromise();
     if (!itensMagicosEncontrados) {
       throw new NotFoundException('Itens mágicos de personagem não encontrado');
     }
@@ -71,10 +76,17 @@ export class PersonagemService {
     return itensMagicosEncontrados;
   }
 
-  async update(id: string, updatePersonagemDto: UpdatePersonagemDto) {
+  @MessagePattern('personagem-user')
+  async update(
+    @Payload()
+    params: {
+      id: string;
+      updatePersonagemDto: UpdatePersonagemDto;
+    },
+  ) {
     return await this.personagemRepository.updatePersonagem({
-      where: { id },
-      data: updatePersonagemDto,
+      where: { id: params.id },
+      data: params.updatePersonagemDto,
     });
   }
 

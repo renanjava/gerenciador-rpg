@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ItemMagico, Prisma } from '@prisma/client';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Injectable()
 export class ItemMagicoRepository {
@@ -15,13 +16,17 @@ export class ItemMagicoRepository {
     });
   }
 
-  async itensMagicos(params: {
-    skip?: number;
-    take?: number;
-    cursor?: Prisma.ItemMagicoWhereUniqueInput;
-    where?: Prisma.ItemMagicoWhereInput;
-    orderBy?: Prisma.ItemMagicoOrderByWithRelationInput;
-  }): Promise<ItemMagico[]> {
+  @MessagePattern('get-item-magico')
+  async itensMagicos(
+    @Payload()
+    params: {
+      skip?: number;
+      take?: number;
+      cursor?: Prisma.ItemMagicoWhereUniqueInput;
+      where?: Prisma.ItemMagicoWhereInput;
+      orderBy?: Prisma.ItemMagicoOrderByWithRelationInput;
+    },
+  ): Promise<ItemMagico[]> {
     const { skip, take, cursor, where, orderBy } = params;
     return this.prisma.itemMagico.findMany({
       skip,
