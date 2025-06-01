@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { ClientKafka } from '@nestjs/microservices';
 export class ItemMagicoService {
   constructor(
     private readonly itemMagicoRepository: ItemMagicoRepository,
+    @Inject('KAFKA_SERVICE')
     private readonly kafkaClient: ClientKafka,
   ) {}
 
